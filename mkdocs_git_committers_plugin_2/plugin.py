@@ -118,9 +118,9 @@ class GitCommittersPlugin(BasePlugin):
                 for commit in res:
                     if not self.config['gitlab_repository']:
                         # GitHub
-                        if commit['commit']['author'] and commit['commit']['author']['login'] and commit['commit']['author']['login'] not in [author['login'] for author in authors]:
-                            authors.append({'login': commit['commit']['author']['login'],
-                                            'name': commit['commit']['author'].get('name') or commit['commit']['author']['login'],
+                        if commit['author'] and commit['author']['login'] and commit['author']['login'] not in [author['login'] for author in authors]:
+                            authors.append({'login': commit['author']['login'],
+                                            'name': commit['commit']['author'].get('name') or commit['author']['login'],
                                             'url': commit['author']['html_url'],
                                             'avatar': commit['author']['avatar_url'] if commit['author']['avatar_url'] is not None else ''
                                             })
