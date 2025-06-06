@@ -118,17 +118,11 @@ class GitCommittersPlugin(BasePlugin):
                 for commit in res:
                     if not self.config['gitlab_repository']:
                         # GitHub
-                        if commit['author'] and commit['author']['login'] and commit['author']['login'] not in [author['login'] for author in authors]:
-                            authors.append({'login': commit['author']['login'],
-                                            'name': commit['author'].get('name') or commit['author']['login'],
+                        if commit['commit']['author'] and commit['commit']['author']['login'] and commit['commit']['author']['login'] not in [author['login'] for author in authors]:
+                            authors.append({'login': commit['commit']['author']['login'],
+                                            'name': commit['commit']['author'].get('name') or commit['commit']['author']['login'],
                                             'url': commit['author']['html_url'],
                                             'avatar': commit['author']['avatar_url'] if commit['author']['avatar_url'] is not None else ''
-                                            })
-                        if commit['committer'] and commit['committer']['login'] and commit['committer']['login'] not in [author['login'] for author in authors]:
-                            authors.append({'login': commit['committer']['login'],
-                                            'name': commit['author'].get('name') or commit['author']['login'],
-                                            'url': commit['committer']['html_url'],
-                                            'avatar': commit['committer']['avatar_url'] if commit['committer']['avatar_url'] is not None else ''
                                             })
                         if commit['commit'] and commit['commit']['message'] and '\nCo-authored-by:' in commit['commit']['message']:
                             github_coauthors_exist = True
