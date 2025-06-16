@@ -52,7 +52,10 @@ class GitCommittersPlugin(BasePlugin):
 
     def on_config(self, config):
         LOG.info("git-committers plugin - custom build")
-        self.enabled = self.config['enabled']
+        if 'MKDOCS_GIT_COMMITTERS_ENABLED' in os.environ:
+            self.enabled = os.environ['MKDOCS_GIT_COMMITTERS_ENABLED'].lower() == 'true'
+        else:
+            self.enabled = self.config['enabled']
         if not self.enabled:
             LOG.info("git-committers plugin DISABLED")
             return config
