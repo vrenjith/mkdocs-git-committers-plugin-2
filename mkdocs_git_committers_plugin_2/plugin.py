@@ -321,7 +321,7 @@ class GitCommittersPlugin(BasePlugin):
         f.close()
 
     def on_pre_build(self, config):
-        if os.path.exists(self.config['cache_dir'] + "/page-authors.json"):
+        if self.enabled and os.path.exists(self.config['cache_dir'] + "/page-authors.json"):
             LOG.info(f"git-committers: found page authors cache file at {self.config['cache_dir'] + '/page-authors.json'} - loading it")
             f = open(self.config['cache_dir'] + "/page-authors.json", "r")
             cache = json.loads(f.read())
